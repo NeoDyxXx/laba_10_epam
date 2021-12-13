@@ -76,6 +76,17 @@ namespace TestsArchitecture.Pages
             return this;
         }
 
+        public MainPage TypeTimeFromTransaction(string time)
+        {
+            IWebElement costElement = new WebDriverWait(this.webDriver, TimeSpan.FromSeconds(3))
+                    .Until(webDriver => webDriver.FindElement(inputOfTime));
+
+            costElement.SendKeys(Keys.Left + Keys.Left + Keys.Left + Keys.Left + Keys.Left + Keys.Left + Keys.Left + Keys.Left);
+            costElement.SendKeys(time);
+
+            return this;
+        }
+
         public MainPage ClickToPushTransaction()
         {
             new WebDriverWait(webDriver, TimeSpan.FromSeconds(3))

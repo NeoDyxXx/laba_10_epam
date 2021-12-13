@@ -9,6 +9,10 @@ namespace TestsArchitecture.Utils
         public string NameOfStock { get; set; }
         public string TimeOfTrade { get; set; }
 
+        public override string ToString()
+        {
+            return NameOfStock + ", " + TimeOfTrade;
+        }
         public bool Equals(ItemInHistoryList other)
         {
             return other.NameOfStock.Contains(this.NameOfStock) && other.TimeOfTrade.Contains(this.TimeOfTrade);

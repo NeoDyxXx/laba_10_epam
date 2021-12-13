@@ -12,6 +12,8 @@ namespace TestsArchitecture.Utils
     {
         public static void LogStat(TestContext testContext)
         {
+
+
             if (testContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
                 try
