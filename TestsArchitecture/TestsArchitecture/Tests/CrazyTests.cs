@@ -22,6 +22,7 @@ namespace TestsArchitecture
         public void Cleanup()
         {
             Utils.TestLogger.LogStat(TestContext.CurrentContext);
+            TestContext.WriteLine(TestContext.CurrentContext.Result.Outcome.Status);
             Driver.DriverInstance.CloseBrowser();
         }
 
@@ -37,6 +38,7 @@ namespace TestsArchitecture
             {
                 TestContext.WriteLine(item);
             }
+
             Assert.IsTrue(Utils.GetStandartValueForTest.GetCorrectList().EqualListsOfItemInHistoryList(steps.GetListItemsInHistoryList()));
         }
 
@@ -45,6 +47,9 @@ namespace TestsArchitecture
         {
             steps.LoginInQuotex();
             steps.PushStockTransaction(new System.DateTime(2021, 1, 1, 0, 0, 0), 0, false);
+
+            TestContext.WriteLine(Utils.GetStandartValueForTest.GetZerosValueTimeAndCost());
+            TestContext.WriteLine(steps.GetTimeAndCostOfStockTransaction());
 
             Assert.AreNotEqual(Utils.GetStandartValueForTest.GetZerosValueTimeAndCost().Time, steps.GetTimeAndCostOfStockTransaction().Time);
             Assert.AreNotEqual(Utils.GetStandartValueForTest.GetZerosValueTimeAndCost().Cost, steps.GetTimeAndCostOfStockTransaction().Cost);
@@ -69,6 +74,12 @@ namespace TestsArchitecture
             steps.PushStockTransaction(new System.DateTime(2021, 1, 1, 0, 1, 0), 50, true, 10);
 
             Assert.IsTrue(Utils.GetStandartValueForTest.GetMultiClickList().EqualListsOfItemInHistoryList(steps.GetListItemsInHistoryList()));
+        }
+
+        [Test]
+        public void Test()
+        {
+            Assert.IsTrue(true);
         }
     }
 }

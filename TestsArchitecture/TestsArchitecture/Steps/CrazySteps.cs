@@ -55,6 +55,7 @@ namespace TestsArchitecture.Steps
         public (string Time, string Cost) GetTimeAndCostOfStockTransaction()
         {
             Pages.MainPage mainPage = new Pages.MainPage(driver);
+            Thread.Sleep(500);
             return (mainPage.GetValueFromTimeInTransaction(), mainPage.GetValueFromCostInTransaction());
         }
 
