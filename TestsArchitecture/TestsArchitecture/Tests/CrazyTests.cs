@@ -2,6 +2,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using TestsArchitecture.Pages;
 using TestsArchitecture.Utils;
+using System.Threading;
 
 namespace TestsArchitecture
 {
@@ -16,14 +17,15 @@ namespace TestsArchitecture
         {
             Driver.DriverInstance.GetInstance().Navigate().GoToUrl(WebSiteAddress);
             steps.InitBrowser();
+            Thread.Sleep(1500);
         }
 
         [TearDown]
         public void Cleanup()
         {
             Utils.TestLogger.LogStat(TestContext.CurrentContext);
-            TestContext.WriteLine(TestContext.CurrentContext.Result.Outcome.Status);
             Driver.DriverInstance.CloseBrowser();
+            Thread.Sleep(1500);
         }
 
         [Test]
