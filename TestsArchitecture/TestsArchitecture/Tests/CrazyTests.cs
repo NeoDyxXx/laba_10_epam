@@ -30,7 +30,7 @@ namespace TestsArchitecture
         public void PushCorrectStockTransactAndCheckInHistoryList()
         {
             steps.LoginInQuotex();
-            steps.ChooseStockInList("AUD/CAD");
+            steps.ChooseStockInSearch("AUD/CAD");
             steps.PushStockTransaction(new System.DateTime(2021, 1, 1, 0, 1, 0), 50, true);
 
 
@@ -70,16 +70,67 @@ namespace TestsArchitecture
         public void MultiPushStockTransaction()
         {
             steps.LoginInQuotex();
-            steps.ChooseStockInList("AUD/CAD");
+            steps.ChooseStockInSearch("AUD/CAD");
             steps.PushStockTransaction(new System.DateTime(2021, 1, 1, 0, 1, 0), 50, true, 10);
 
             Assert.IsTrue(Utils.GetStandartValueForTest.GetMultiClickList().EqualListsOfItemInHistoryList(steps.GetListItemsInHistoryList()));
         }
 
         [Test]
-        public void Test()
+        public void ChooseTwoMinutesTimeInDropoutList()
         {
-            Assert.IsTrue(true);
+            steps.LoginInQuotex();
+            steps.ChooseTimeInTimeDropoutTabs(1);
+
+            TestContext.WriteLine(steps.GetTimeAndCostOfStockTransaction().Time);
+            Assert.AreEqual(steps.GetTimeAndCostOfStockTransaction().Time, "00:02:00");
+        }
+
+        [Test]
+        public void ChooseFiveMinutesTimeInDropoutList()
+        {
+            steps.LoginInQuotex();
+            steps.ChooseTimeInTimeDropoutTabs(4);
+
+            Assert.AreEqual(steps.GetTimeAndCostOfStockTransaction().Time, "00:05:00");
+        }
+
+        [Test]
+        public void ChooseStockInSearchList()
+        {
+            steps.LoginInQuotex();
+            steps.ChooseStockInSearch("CAD/J");
+
+            Assert.AreEqual(steps.GetCurrectStockName(), "CAD/JPY (OTC)");
+        }
+
+        [Test]
+        public void ChooseStockInSearchListAndReturnToFirstStock()
+        {
+            steps.LoginInQuotex();
+            steps.ChooseStockInSearch("CAD/J");
+            steps.ChooseStockInTabList(0);
+
+            Assert.AreNotEqual(steps.GetCurrectStockName(), "CAD/JPY (OTC)");
+        }
+
+        [Test]
+        public void ChooseStockInSearchCryptoList()
+        {
+            steps.LoginInQuotex();
+            steps.ChooseStockInSearchCrypto();
+
+            Assert.AreNotEqual(steps.GetCurrectStockName(), "Ethereum");
+        }
+
+        [Test]
+        public void CloseCurrectStockInTabList()
+        {
+            steps.LoginInQuotex();
+            steps.ChooseStockInSearch("CAD/J");
+            steps.CloseCurrectStockInTabList();
+
+            Assert.AreNotEqual(steps.GetCurrectStockName(), "CAD/JPY (OTC)");
         }
     }
 }
